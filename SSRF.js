@@ -15,15 +15,13 @@ app.use(express.json());
 
 app.post('/upload-post', (req, res) => {
     let postImage = req.body['image'];
-    let caption = req.body['caption'];
-
     postImage = connection.escape(postImage);
-    caption = connection.escape(caption);
 
-    connection.query(`INSERT INTO posts (post_images, captions) VALUES (${postImage}, ${caption})`, (error, results, fields) => {
+    connection.query(`INSERT INTO posts (post_images) VALUES (${postImage})`, (error, results, fields) => {
         res.status(200).send('Post uploaded!');
     });
 });
+
 
 app.post('/is-endpoint-working', (req, res) => {
     let endpoint = req.body['endpoint'];
@@ -54,4 +52,4 @@ app.post('/retrieve-user-data/:id', (req, res) => {
 
 app.listen(8080, () => {
     console.log('Server started.');
-})
+});
